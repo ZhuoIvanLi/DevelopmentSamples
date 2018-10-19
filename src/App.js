@@ -1,37 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-
-import Footer from './components/Footer'
-import AddTodo from './containers/AddTodo'
-import VisibleTodoList from './containers/VisibleTodoList'
-
+import PropTypes from 'prop-types'
+import LowerApp from './LowerApp'
+import {connect } from 'react-redux'
+import {userSignupRequest} from './actions/signupActions'
+import {addFlashMessage} from './actions/flashMessagesAction'
+import MessageList from './MessageList'
 
 class App extends Component {
 
-
   render() {
+    const {userSignupRequest, addFlashMessage} = this.props;
 
-    return(
+    return (
       <div>
-      <AddTodo />
-      <VisibleTodoList />
-      <Footer />
-    </div>
+        <h1>Hello World!</h1>
+        <MessageList />
+        <LowerApp userSignupRequest={userSignupRequest} addFlashMessage={addFlashMessage}/>
+     </div>
     );
-
-    // return (
-    //   <div className="App">
-    //     <header className="App-header">
-    //       <img src={logo} className="App-logo" alt="logo" />
-    //       <h1 className="App-title">Welcome to React</h1>
-    //     </header>
-    //     <p className="App-intro">
-    //       To get started, edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //   </div>
-    // );
   }
 }
 
-export default App;
+App.propTypes = {
+  userSignupRequest: PropTypes.func.isRequired,
+  addFlashMessage: PropTypes.func.isRequired
+}
+
+//pass the action to next level
+export default connect((state)=> {return {}}, {userSignupRequest, addFlashMessage})(App);
